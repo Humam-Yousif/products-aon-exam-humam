@@ -17,16 +17,16 @@ namespace ProductsAonExam.Controllers
             if (product == null)
                 return BadRequest("Please insert valid data !");
 
-            Product tempPrudouct = new Product();
             var lastProduct = products.LastOrDefault();
-            if (lastProduct == null) {
-                _ = new Product(1, product);
+            Product tempPrudouct = new Product(1, product);
+            if (lastProduct == null)
+            {
+                tempPrudouct.Id = 1;
+                products.Add(tempPrudouct);
+                return CreatedAtAction("Created", product);
             }
 
-            else {
-                _ = new Product(lastProduct.Id + 1, product);
-            }
-            
+            tempPrudouct.Id = lastProduct.Id + 1;
 
             products.Add(tempPrudouct);
             return CreatedAtAction("Created", product);
